@@ -1,0 +1,29 @@
+.topbar {
+  .freeshipping {
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px;
+    width: auto;
+  }
+  .Header {
+    background-color: #fff;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    .navbar {
+      color: black;
+      display: flex;
+      text-transform: uppercase;
+      justify-content: space-between;
+      width: auto;
+      span{
+        cursor: pointer;
+        &:hover {
+          color: #808080;
+      }
+    }
+    }
+  }
+}
