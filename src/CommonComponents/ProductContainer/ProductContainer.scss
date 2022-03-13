@@ -1,0 +1,11 @@
+.ProductContainer{
+    width:65%;
+    // background-color: cadetblue;
+    margin: auto;
+}
+
+@media only screen and (max-width: 768px){
+    .ProductContainer{
+        width: 100%;
+    }
+}

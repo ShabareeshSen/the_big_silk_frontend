@@ -1,0 +1,20 @@
+.responsiveFooterAccordian{
+    .desktopAccordian{
+        display: block;
+    }
+    .mobileAccordian{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .responsiveFooterAccordian{
+        display: block;
+        .desktopAccordian{
+            display: none;
+        }
+        .mobileAccordian{
+            display: block;
+        }
+    }
+}

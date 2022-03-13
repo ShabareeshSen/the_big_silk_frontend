@@ -16,7 +16,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { arr } from "../../CommonComponents/stateCity";
 import { Autocomplete } from "@mui/material";
 import axios from "axios";
-import bcrypt from "bcryptjs";
+import Snackbar from "@mui/material/Snackbar";
+import Stack from '@mui/material/Stack';
+import MuiAlert from '@mui/material/Alert';
 function Copyright(props) {
   return (
     <Typography
@@ -27,7 +29,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Tyche Silks
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -35,10 +37,13 @@ function Copyright(props) {
   );
 }
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const theme = createTheme();
 
 export default function SignUp() {
-  var salt = bcrypt.genSaltSync(10);
   const [state, setstate] = useState({
     firstname: "",
     lastname: "",
@@ -61,29 +66,75 @@ export default function SignUp() {
   let sta = arr;
   let states = Object.keys(arr);
   let city = arr[state.state];
-  const onSave = () => {
-    setstate({ ...state, password: bcrypt.hashSync(passwords.pass, salt) });
-    axios.post("http://localhost:5000/users", state);
-  };
+  const [open, setopen] = useState(false);
+  const [msg, setmsg] = useState("");
+  const [severity, setseverity] = useState("");
+  const checkr=(value)=>{
+    return value!=="" && value!= undefined && value!=null;
+  }
+ 
+  const isEmpty = Object.values(state).every(checkr);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // setstate({ ...state, password: bcrypt.hashSync(passwords.pass, salt) });
-   
-      axios.post("http://localhost:5000/users", {
-    firstname: state.firstname,
-    lastname: state.lastname,
-    email:  state.email,
-    phone:  state.phone,
-    address:  state.address,
-    state:  state.state,
-    city:  state.city,
-    password: passwords.pass,
-    pincode: state.pincode,
-    } )
+
+    axios
+      .post("http://localhost:5000/users", {
+        firstname: state.firstname,
+        lastname: state.lastname,
+        email: state.email,
+        phone: state.phone,
+        address: state.address,
+        state: state.state,
+        city: state.city,
+        password: state.password,
+        pincode: state.pincode,
+      })
+      .then((res) => {
+        console.log(res,"res");
+        if (res?.data?.err !== null || undefined) {
+          setopen(true);
+          setseverity("error")
+          setmsg(res?.data?.err);
+        } else if (res?.data?.msg !== null) {
+          setopen(true);
+          setseverity("success");
+          setmsg(res?.data?.msg);}
+      })
+      .catch((err) => {
+        console.log(err);
+        setopen(true);
+        setmsg(err);
+      });
   };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
+        <Stack spacing={2} sx={{ width: "100%" }}>
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={() => setopen(false)}
+            message={msg}
+          >
+            <Alert
+              onClose={() => setopen(false)}
+              autoHideDuration={4000}
+              severity={severity}
+              sx={{ width: "100%" }}
+            >
+              {msg + " !"}
+            </Alert>
+          </Snackbar>
+          {/* action={action} */}
+          {open ? (
+            <Alert onClose={() => setopen(false)} severity={severity}>
+              {msg}
+            </Alert>
+          ) : (
+            <></>
+          )}
+        </Stack>
         <CssBaseline />
         <Box
           sx={{
@@ -165,7 +216,10 @@ export default function SignUp() {
                       ...state,
                       password: e.target.value,
                     });
-                    setpasswords({ ...passwords, pass:bcrypt.hashSync(e.target.value , salt) });
+                    // setpasswords({
+                    //   ...passwords,
+                    //   pass: bcrypt.hashSync(e.target.value, salt),
+                    // });
                   }}
                 />
               </Grid>
@@ -194,13 +248,17 @@ export default function SignUp() {
                   required
                   fullWidth
                   // type={"number"}
+                  maxLength={12}
                   id="phone"
                   label="Phone"
                   name="phone"
                   autoComplete="phone"
                   value={state.phone}
                   onChange={(e) => {
-                    setstate({ ...state, phone: e.target.value });
+                    setstate({
+                      ...state,
+                      phone: e.target.value.toString().slice(0, 10),
+                    });
                   }}
                 />
               </Grid>
@@ -277,6 +335,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={!isEmpty}
             >
               Sign Up
             </Button>

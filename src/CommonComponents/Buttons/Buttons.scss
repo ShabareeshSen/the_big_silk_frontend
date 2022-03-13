@@ -1,0 +1,36 @@
+.button{
+    color: white;
+    padding: 10px 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transition: ease all 1s;
+    margin: 5px;
+    border: solid 1px black;
+    &:hover{
+        background-color: white;
+        color: black;
+    }
+    &:disabled{
+        opacity: .2;
+        &:hover{
+            opacity: 1;
+        }
+    }
+}
+.AddToCartButton{
+    cursor: pointer;
+    background-color: black;
+}
+.SoldOut{
+    background-color: #7796a8;
+}
+.btn-bottom-outline{
+    color: black;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px solid black;
+    &:hover{
+        opacity: .5;
+    }
+}

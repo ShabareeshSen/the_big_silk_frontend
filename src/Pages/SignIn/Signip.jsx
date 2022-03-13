@@ -13,7 +13,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
-import bcrypt from "bcryptjs";
 function Copyright(props) {
   return (
     <Typography
@@ -33,15 +32,16 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-var salt = bcrypt.genSaltSync(10);
 export default function SignIn() {
+ 
+  
   const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     await axios.post("http://localhost:5000/login", {
       email: data.get("email"),
-      password: data.get("password"),
+      password: data.get("password")
     });
     console.log({
       email: data.get("email"),

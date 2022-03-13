@@ -1,0 +1,15 @@
+.ViewProduct{
+    margin: 1rem;
+    .heightAuto{
+        height: max-content !important;
+    }
+    .list-hiphen{
+        list-style-type: "  -   ";
+    }
+    .picColorImage{
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}

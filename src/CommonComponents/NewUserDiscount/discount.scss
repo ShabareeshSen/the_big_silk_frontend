@@ -1,0 +1,48 @@
+.NewUserDisCount{
+    position: fixed;
+    right: 0;
+    bottom: 10px;
+    z-index: 100;
+    width: 34vw;
+    height: 34vh;
+    border-radius: 10px;
+    background: url("https://d3k81ch9hvuctc.cloudfront.net/company/NwQ7FV/images/a92754e1-25d2-41e9-885e-b15bd1cfa3c9.png") no-repeat;
+    .close{
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        width: 32px;
+        height: 32px;
+        font-size: 24px;
+        color: #000;
+        background-color: #fff;
+        border: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        padding: 0 !important;
+        // cursor: pointer;
+    }
+    .getEmail{ 
+        position: absolute;
+        top: 225px;
+        width: 50%;
+        input{
+            display: block;
+            padding: .5rem;
+            margin:  .1rem .5rem;
+            width: 100%;
+        }
+        button{
+            margin: auto;
+            display: block;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .NewUserDisCount{
+        display: none;
+    }
+}

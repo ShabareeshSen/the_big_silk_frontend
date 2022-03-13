@@ -1,0 +1,36 @@
+.productImageView{
+    width: 75%;
+    margin: 0 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    .imageBox{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: row;
+        .left{
+            overflow-y: scroll;
+            height: 500px;
+            width: 131px;
+            position: relative;
+            img{
+                position: relative;
+                width: 131px;
+                height: 162px;
+                margin: 0.5rem;
+            }
+        }
+        .right{
+            overflow: hidden;
+            width: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                width: 95%;
+                height: 85%;
+            }
+        }
+    }
+}
