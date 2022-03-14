@@ -17,8 +17,8 @@ import { arr } from "../../CommonComponents/stateCity";
 import { Autocomplete } from "@mui/material";
 import axios from "axios";
 import Snackbar from "@mui/material/Snackbar";
-import Stack from '@mui/material/Stack';
-import MuiAlert from '@mui/material/Alert';
+import Stack from "@mui/material/Stack";
+import MuiAlert from "@mui/material/Alert";
 function Copyright(props) {
   return (
     <Typography
@@ -69,10 +69,10 @@ export default function SignUp() {
   const [open, setopen] = useState(false);
   const [msg, setmsg] = useState("");
   const [severity, setseverity] = useState("");
-  const checkr=(value)=>{
-    return value!=="" && value!= undefined && value!=null;
-  }
- 
+  const checkr = (value) => {
+    return value !== "" && value != undefined && value != null;
+  };
+
   const isEmpty = Object.values(state).every(checkr);
 
   const handleSubmit = async (event) => {
@@ -91,15 +91,16 @@ export default function SignUp() {
         pincode: state.pincode,
       })
       .then((res) => {
-        console.log(res,"res");
-        if (res?.data?.err !== null || undefined) {
+        if (res?.data?.err) {
           setopen(true);
-          setseverity("error")
+          setseverity("error");
           setmsg(res?.data?.err);
-        } else if (res?.data?.msg !== null) {
+        } else {
+          console.log("success");
           setopen(true);
           setseverity("success");
-          setmsg(res?.data?.msg);}
+          setmsg(res?.data?.msg);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -111,19 +112,14 @@ export default function SignUp() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
         <Stack spacing={2} sx={{ width: "100%" }}>
-          <Snackbar
-            open={open}
-            autoHideDuration={6000}
-            onClose={() => setopen(false)}
-            message={msg}
-          >
+          <Snackbar open={open} autoHideDuration={3000}>
             <Alert
               onClose={() => setopen(false)}
               autoHideDuration={4000}
               severity={severity}
               sx={{ width: "100%" }}
             >
-              {msg + " !"}
+              {msg}
             </Alert>
           </Snackbar>
           {/* action={action} */}
